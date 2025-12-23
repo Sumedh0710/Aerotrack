@@ -7,7 +7,9 @@ import { MaintenanceService } from '../../../../core/services/maintenance.servic
 import { MaintenanceTask, TaskStatus } from '../../../../core/models/maintenance-task.model';
 import { AircraftService } from '../../../../core/services/aircraft.service';
 
-@Component({ selector:'app-maintenance-form', standalone:true, imports:[CommonModule,ReactiveFormsModule,RouterModule], templateUrl:'./maintenance-form.component.html' })
+@Component({
+    selector: 'app-maintenance-form', imports: [CommonModule, ReactiveFormsModule, RouterModule], templateUrl: './maintenance-form.component.html'
+})
 export class MaintenanceFormComponent implements OnInit {
   isEdit=false; statuses:TaskStatus[]=['PENDING','IN_PROGRESS','COMPLETED']; aircraftIDs:string[]=[];
   form=this.fb.group({ taskID:['',[Validators.required,Validators.pattern(/^[A-Z]{2}-\d{4}$/)]], aircraftID:['',[Validators.required]], scheduledDate:['',[Validators.required]], status:['PENDING' as TaskStatus,[Validators.required]] });

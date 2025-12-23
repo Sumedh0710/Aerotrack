@@ -6,7 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { AircraftService } from '../../../../core/services/aircraft.service';
 import { Aircraft, AircraftCategory, ComplianceStatus } from '../../../../core/models/aircraft.model';
 
-@Component({ selector:'app-aircraft-list', standalone:true, imports:[CommonModule,RouterModule,FormsModule], templateUrl:'./aircraft-list.component.html' })
+@Component({
+    selector: 'app-aircraft-list', imports: [CommonModule, RouterModule, FormsModule], templateUrl: './aircraft-list.component.html'
+})
 export class AircraftListComponent implements OnInit {
   term=''; category:AircraftCategory|''=''; compliance:ComplianceStatus|''=''; aircraft:Aircraft[]=[];
   categories:AircraftCategory[]=['Commercial','Defense','Cargo']; compliances:ComplianceStatus[]=['Compliant','Pending','Non-Compliant'];

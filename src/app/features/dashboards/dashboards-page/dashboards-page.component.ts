@@ -12,11 +12,10 @@ import { AuditService } from '../../../core/services/audit.service';
 import { ReportsService } from '../../../core/services/reports.service';
 
 @Component({
-  selector: 'app-dashboards-page',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './dashboards-page.component.html',
-  styleUrls: ['./dashboards-page.component.css']
+    selector: 'app-dashboards-page',
+    imports: [CommonModule],
+    templateUrl: './dashboards-page.component.html',
+    styleUrls: ['./dashboards-page.component.css']
 })
 export class DashboardsPageComponent implements AfterViewInit, OnDestroy {
 

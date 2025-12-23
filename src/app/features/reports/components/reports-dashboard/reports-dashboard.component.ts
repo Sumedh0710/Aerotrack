@@ -3,7 +3,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportsService } from '../../../../core/services/reports.service';
 
-@Component({ selector:'app-reports-dashboard', standalone:true, imports:[CommonModule], templateUrl:'./reports-dashboard.component.html' })
+@Component({
+    selector: 'app-reports-dashboard', imports: [CommonModule], templateUrl: './reports-dashboard.component.html'
+})
 export class ReportsDashboardComponent {
   lastCSVUrl: string | null = null;
   report = this.reports.generate();

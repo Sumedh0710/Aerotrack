@@ -6,7 +6,9 @@ import { RouterModule } from '@angular/router';
 import { AuditService } from '../../../../core/services/audit.service';
 import { AuditLog } from '../../../../core/models/audit-log.model';
 
-@Component({ selector:'app-audit-list', standalone:true, imports:[CommonModule,FormsModule,RouterModule], templateUrl:'./audit-list.component.html' })
+@Component({
+    selector: 'app-audit-list', imports: [CommonModule, FormsModule, RouterModule], templateUrl: './audit-list.component.html'
+})
 export class AuditListComponent implements OnInit {
   term=''; logs:AuditLog[]=[]; aircraftFilter='';
   constructor(private svc:AuditService){}

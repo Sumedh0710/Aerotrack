@@ -6,7 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { AircraftService } from '../../../../core/services/aircraft.service';
 import { Aircraft, ServiceEvent } from '../../../../core/models/aircraft.model';
 
-@Component({ selector:'app-aircraft-detail', standalone:true, imports:[CommonModule,RouterModule,FormsModule], templateUrl:'./aircraft-detail.component.html' })
+@Component({
+    selector: 'app-aircraft-detail', imports: [CommonModule, RouterModule, FormsModule], templateUrl: './aircraft-detail.component.html'
+})
 export class AircraftDetailComponent implements OnInit {
   aircraft?:Aircraft; date=''; description=''; performedBy='';
   constructor(private route:ActivatedRoute, private svc:AircraftService){}

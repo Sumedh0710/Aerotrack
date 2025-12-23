@@ -6,7 +6,9 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { AuditService } from '../../../../core/services/audit.service';
 import { AuditLog } from '../../../../core/models/audit-log.model';
 
-@Component({ selector:'app-audit-form', standalone:true, imports:[CommonModule,ReactiveFormsModule,RouterModule], templateUrl:'./audit-form.component.html' })
+@Component({
+    selector: 'app-audit-form', imports: [CommonModule, ReactiveFormsModule, RouterModule], templateUrl: './audit-form.component.html'
+})
 export class AuditFormComponent implements OnInit {
   isEdit=false;
   form=this.fb.group({ auditID:['',[Validators.required,Validators.pattern(/^[A-Z]{2}-\d{4}$/)]], aircraftID:['',[Validators.required]], findings:['',[Validators.required,Validators.minLength(3)]], date:[new Date().toISOString().slice(0,10),[Validators.required]] });

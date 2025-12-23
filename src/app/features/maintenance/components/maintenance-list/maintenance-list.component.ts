@@ -7,7 +7,9 @@ import { MaintenanceService } from '../../../../core/services/maintenance.servic
 import { MaintenanceTask, TaskStatus } from '../../../../core/models/maintenance-task.model';
 import { AircraftService } from '../../../../core/services/aircraft.service';
 
-@Component({ selector:'app-maintenance-list', standalone:true, imports:[CommonModule,FormsModule,RouterModule], templateUrl:'./maintenance-list.component.html' })
+@Component({
+    selector: 'app-maintenance-list', imports: [CommonModule, FormsModule, RouterModule], templateUrl: './maintenance-list.component.html'
+})
 export class MaintenanceListComponent implements OnInit {
   term=''; status:TaskStatus|''=''; tasks:MaintenanceTask[]=[]; statuses:TaskStatus[]=['PENDING','IN_PROGRESS','COMPLETED']; aircraftIDs:string[]=[]; selectedAircraftForEmergency='';
   constructor(private svc:MaintenanceService, private aircraftSvc:AircraftService){}

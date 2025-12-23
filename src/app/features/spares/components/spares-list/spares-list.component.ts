@@ -6,7 +6,9 @@ import { RouterModule } from '@angular/router';
 import { SparesService } from '../../../../core/services/spares.service';
 import { SparePart } from '../../../../core/models/spare-part.model';
 
-@Component({ selector:'app-spares-list', standalone:true, imports:[CommonModule,FormsModule,RouterModule], templateUrl:'./spares-list.component.html' })
+@Component({
+    selector: 'app-spares-list', imports: [CommonModule, FormsModule, RouterModule], templateUrl: './spares-list.component.html'
+})
 export class SparesListComponent implements OnInit {
   term=''; lowOnly=false; parts:SparePart[]=[];
   constructor(private svc:SparesService){}

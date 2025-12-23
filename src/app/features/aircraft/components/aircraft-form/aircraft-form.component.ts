@@ -6,7 +6,9 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { AircraftService } from '../../../../core/services/aircraft.service';
 import { Aircraft, AircraftCategory, ComplianceStatus } from '../../../../core/models/aircraft.model';
 
-@Component({ selector:'app-aircraft-form', standalone:true, imports:[CommonModule,ReactiveFormsModule,RouterModule], templateUrl:'./aircraft-form.component.html' })
+@Component({
+    selector: 'app-aircraft-form', imports: [CommonModule, ReactiveFormsModule, RouterModule], templateUrl: './aircraft-form.component.html'
+})
 export class AircraftFormComponent implements OnInit {
   isEdit=false; categories:AircraftCategory[]=['Commercial','Defense','Cargo']; compliances:ComplianceStatus[]=['Compliant','Pending','Non-Compliant'];
   form=this.fb.group({ aircraftID:['',[Validators.required,Validators.pattern(/^[A-Z]{2}-\d{4}$/)]], model:['',[Validators.required,Validators.minLength(3)]], category:['Commercial' as AircraftCategory,[Validators.required]], complianceStatus:['Pending' as ComplianceStatus,[Validators.required]] });
