@@ -29,7 +29,7 @@
   <div class="card">
     <h4>Fleet KPIs</h4>
     <div class="kpi-cards">
-      <div class="kpi"><div>Maintenance Cost</div><div class="val">₹ {{ kpi.metrics.costAnalysis | number:'1.0-0' }}</div></div>
+      <div class="kpi"><div>Maintenance Cost</div><div class="val">$ {{ kpi.metrics.costAnalysis | number:'1.0-0' }}</div></div>
       <div class="kpi"><div>Safety Performance</div><div class="val">{{ kpi.metrics.safetyPerformance }} / 100</div></div>
       <div class="kpi"><div>Downtime (hrs)</div><div class="val">{{ kpi.metrics.downtimeHours }}</div></div>
       <div class="kpi"><div>Generated</div><div class="val">{{ kpi.generatedDate }}</div></div>
