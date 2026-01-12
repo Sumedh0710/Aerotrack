@@ -1,9 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import {
-  MaintenanceTask,
-  TaskStatus,
-} from "../../core/models/maintenance-task.model";
+import {MaintenanceTask,TaskStatus,} from "../../core/models/maintenance-task.model";
 import { HttpClient } from "@angular/common/http";
 
 const STORAGE_KEY = "aerotrack.maintenance";

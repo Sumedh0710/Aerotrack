@@ -1,4 +1,3 @@
-<!-- toolbar -->
 <div class="toolbar">
   <div class="search-filters">
     <input
@@ -13,131 +12,152 @@
       <option value="">All Status</option>
       <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
     </select>
-
   </div>
 
-  <div style="display:flex; gap:8px; align-content: center;">
-    <!-- <a class="btn" routerLink="/maintenance/new">+ New Task</a> -->
-     
+  <div style="display: flex; gap: 8px; align-content: center">
+
 <a
-  class="btn"
+  class="btn btn-outline-secondary"
   routerLink="/maintenance/new"
   style="
     display:inline-flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    width:110px;          
-    height:64px;           
+    width:110px;
+    height:64px;
     text-align:center;
-    padding:0;             
+    padding:0;
   "
 >
-  <span style="display:block; line-height:1.1;">+ New</span>
-  <span style="display:block; line-height:1.1;">Task</span>
+  <span style="line-height:1.1;font-size: 14px;">+ New</span>
+  <span style="line-height:1.1 ;font-size: 14px ">Task</span>
 </a>
 
 
-    <select [(ngModel)]="selectedAircraftForEmergency" style="min-width:180px;">
-      <option value="">Emergency: select AircraftID</option>
-      <option *ngFor="let id of aircraftIDs" [value]="id">{{ id }}</option>
-    </select>
+    
+        <select class="form-select form-select-sm" [(ngModel)]="selectedAircraftForEmergency" style="min-width:180px;">
+        <option value="">Select AircraftID</option>
+        <option *ngFor="let id of aircraftIDs" [value]="id">{{ id }}</option>
+        </select>
 
-    <button class="btn danger" (click)="createEmergency()">Create Emergency Task</button>
+
+<button
+  class="btn btn-danger"
+  (click)="createEmergency()"
+  style="
+    width: 110px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+  "
+>
+  Create Emergency Task
+</button>
+
   </div>
 </div>
 
 <table>
-<div class="card">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Task ID</th>
-        <th>Aircraft ID</th>
-        <th>Scheduled Date</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Task ID</th>
+          <th>Aircraft ID</th>
+          <th>Scheduled Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr *ngFor="let t of tasks" [class.row-emergency]="t.isEmergency">
-        <td>
-          <span *ngIf="t.isEmergency" class="emg-icon" aria-label="Emergency">⚠️</span>
-          {{ t.taskID }}
-        </td>
-
-        <td>{{ t.aircraftID }}</td>
-        <td>{{ t.scheduledDate }}</td>
-
-        <td>
-          <span
-            class="badge"
-            [ngClass]="{
-              'warn': t.status === 'PENDING',
-              'err': t.status === 'IN_PROGRESS',
-              'ok': t.status === 'COMPLETED'
-            }"
-          >
-            {{ t.status }}
-          </span>
-
-          <!-- Emergency badge -->
-          <span *ngIf="t.isEmergency" class="badge badge-emergency">EMERGENCY</span>
-
-          <!-- Optional SLA countdown -->
-          <span *ngIf="t.isEmergency && t.dueAt" class="badge badge-sla">
-            SLA: {{ timeLeft(t.dueAt) }}
-          </span>
-        </td>
-
-        <td>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <button
-              class="btn"
-              style="min-width:90px;"
-              (click)="start(t.taskID)"
-              [disabled]="t.status !== 'PENDING'"
+      <tbody>
+        <tr *ngFor="let t of tasks" [class.row-emergency]="t.isEmergency">
+          <td>
+            <span *ngIf="t.isEmergency" class="emg-icon" aria-label="Emergency"
+              >⚠️</span
             >
-              Start
-            </button>
+            {{ t.taskID }}
+          </td>
 
-            <button
-              class="btn"
-              style="min-width:90px;"
-              (click)="complete(t.taskID)"
-              [disabled]="t.status !== 'IN_PROGRESS'"
+          <td>{{ t.aircraftID }}</td>
+          <td>{{ t.scheduledDate }}</td>
+
+          <td>
+            <span
+              class="badge"
+              [ngClass]="{
+                warn: t.status === 'PENDING',
+                err: t.status === 'IN_PROGRESS',
+                ok: t.status === 'COMPLETED'
+              }"
             >
-              Complete
-            </button>
+              {{ t.status }}
+            </span>
 
-            <a
-             class="btn secondary"
-            style="min-width:90px; text-align:center;"
-            [routerLink]="['/maintenance', t.taskID, 'edit']"
-            [class.disabled]="t.status === 'COMPLETED'"
-            [attr.tabindex]="t.status === 'COMPLETED' ? -1 : null"
-            [style.pointerEvents]="t.status === 'COMPLETED' ? 'none' : 'auto'"
-            [style.filter]="t.status === 'COMPLETED' ? 'brightness(0.85) saturate(0.6)' : null"
->            Edit
-            </a>
 
-            <button
-              class="btn danger"
-              style="min-width:90px;"
-              (click)="remove(t.taskID)">
-              Delete
-            </button>
+            <span *ngIf="t.isEmergency" class="badge text-bg-danger btn-sm ms-2">EMERGENCY</span>
+
+            <span *ngIf="t.isEmergency && t.dueAt" class="badge badge-sla">
+              SLA: {{ timeLeft(t.dueAt) }}
+            </span>
+          </td>
+
+          <td>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <button
+                class="btn btn-primary"
+                style="min-width: 90px"
+                (click)="start(t.taskID)"
+                [disabled]="t.status !== 'PENDING'"
+              >
+                Start
+              </button>
+
+              <button
+                class="btn btn-primary"
+                style="min-width: 90px"
+                (click)="complete(t.taskID)"
+                [disabled]="t.status !== 'IN_PROGRESS'"
+              >
+                Complete
+              </button>
+
+
+              <button
+                class="btn btn-sm"
+                [ngClass]="
+                  t.status === 'COMPLETED'
+                    ? 'btn-secondary'
+                    : 'btn-outline-secondary'
+                "
+                style="min-width: 90px; text-align: center"
+                [disabled]="t.status === 'COMPLETED'"
+                (click)="onEdit(t.taskID)"
+              >
+                Edit
+              </button>
+
+              <button
+                class="btn danger"
+                style="min-width: 90px"
+                (click)="remove(t.taskID)"
+              >
+                Delete
+              </button>
             </div>
-        </td>
-      </tr>
+          </td>
+        </tr>
 
-      <tr *ngIf="tasks.length === 0">
-        <td colspan="5" style="text-align:center; color:var(--muted)">
-          No tasks found
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
+        <tr *ngIf="tasks.length === 0">
+          <td colspan="5" style="text-align: center; color: var(--muted)">
+            No tasks found
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</table>

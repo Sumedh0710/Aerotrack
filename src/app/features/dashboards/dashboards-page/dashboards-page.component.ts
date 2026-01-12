@@ -52,28 +52,19 @@ export class DashboardsPageComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngAfterViewInit(): void {
-    // Initialize charts once canvases are available
     this.initMaintenanceCharts();
     this.initAdminCharts();
 
-    // Reactive updates from services
     this.subs.push(
       this.maintenanceSvc.list().subscribe(tasks => {
         const pending = tasks.filter(t => t.status === 'PENDING').length;
         const inprog  = tasks.filter(t => t.status === 'IN_PROGRESS').length;
         const done    = tasks.filter(t => t.status === 'COMPLETED').length;
 
-        // Maintenance status bar
         this.maintBarChart!.data.labels = ['Pending', 'In Progress', 'Completed'];
         this.maintBarChart!.data.datasets[0].data = [pending, inprog, done];
         this.maintBarChart!.update();
 
-        // Maintenance status doughnut
-        // this.maintDonutChart!.data.labels = ['Pending', 'In Progress', 'Completed'];
-        // (this.maintDonutChart!.data.datasets[0].data as number[]) = [pending, inprog, done];
-        // this.maintDonutChart!.update();
-
-        // Maintenance trend line (by scheduledDate)
         const perDay = new Map<string, number>();
         tasks.forEach(t => {
           const d = (t.scheduledDate || '').slice(0, 10);
@@ -84,7 +75,6 @@ export class DashboardsPageComponent implements AfterViewInit, OnDestroy {
         (this.maintLineChart!.data.datasets[0].data as number[]) = labels.map(l => perDay.get(l) || 0);
         this.maintLineChart!.update();
 
-        // KPIs recompute
         this.kpi = this.reports.generate();
       })
     );
@@ -95,7 +85,6 @@ export class DashboardsPageComponent implements AfterViewInit, OnDestroy {
         const defense    = list.filter(a => a.category === 'Defense').length;
         const cargo      = list.filter(a => a.category === 'Cargo').length;
 
-        // Aircraft category bar
         this.aircatBarChart!.data.labels = ['Commercial', 'Defense', 'Cargo'];
         (this.aircatBarChart!.data.datasets[0].data as number[]) = [commercial, defense, cargo];
         this.aircatBarChart!.update();
@@ -104,7 +93,6 @@ export class DashboardsPageComponent implements AfterViewInit, OnDestroy {
         const pendingComp  = list.filter(a => a.complianceStatus === 'Pending').length;
         const nonCompliant = list.filter(a => a.complianceStatus === 'Non-Compliant').length;
 
-        // Compliance doughnut
         this.compDonutChart!.data.labels = ['Compliant', 'Pending', 'Non-Compliant'];
         (this.compDonutChart!.data.datasets[0].data as number[]) = [compliant, pendingComp, nonCompliant];
         this.compDonutChart!.update();
@@ -116,7 +104,6 @@ export class DashboardsPageComponent implements AfterViewInit, OnDestroy {
         const low = parts.filter(p => p.quantityAvailable <= p.reorderLevel).length;
         const ok  = parts.length - low;
 
-        // Spares health doughnut
         this.sparesDonutChart!.data.labels = ['LOW', 'OK'];
         (this.sparesDonutChart!.data.datasets[0].data as number[]) = [low, ok];
         this.sparesDonutChart!.update();
@@ -125,21 +112,14 @@ export class DashboardsPageComponent implements AfterViewInit, OnDestroy {
   }
 
   private initMaintenanceCharts(): void {
-    // Status bar
+   
     this.maintBarChart = new Chart(this.maintBar.nativeElement, {
       type: 'bar',
       data: { labels: [], datasets: [{ label: 'Tasks', data: [], backgroundColor: ['#ffc107', '#fd7e14', '#198754'] }] },
       options: { responsive: true, plugins: { legend: { display: true } } }
     });
 
-    // Status doughnut
-    // this.maintDonutChart = new Chart(this.maintDonut.nativeElement, {
-    //   type: 'doughnut',
-    //   data: { labels: [], datasets: [{ data: [], backgroundColor: ['#ffe38a', '#feb27c', '#74c69d'], borderColor: ['#ffc107', '#fd7e14', '#198754'] }] },
-    //   options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-    // });
-
-    // Trend line
+ 
     this.maintLineChart = new Chart(this.maintLine.nativeElement, {
       type: 'line',
       data: { labels: [], datasets: [{ label: 'Tasks per Day', data: [], borderColor: '#0b5ed7', backgroundColor: 'rgba(11,94,215,0.2)', tension: 0.2, fill: true }] },
@@ -148,21 +128,21 @@ export class DashboardsPageComponent implements AfterViewInit, OnDestroy {
   }
 
   private initAdminCharts(): void {
-    // Aircraft category bar
+  
     this.aircatBarChart = new Chart(this.aircatBar.nativeElement, {
       type: 'bar',
       data: { labels: [], datasets: [{ label: 'Aircraft', data: [], backgroundColor: ['#0b5ed7','#6f42c1','#20c997'] }] },
       options: { responsive: true, plugins: { legend: { display: false } } }
     });
 
-    // Compliance doughnut
+   
     this.compDonutChart = new Chart(this.compDonut.nativeElement, {
       type: 'doughnut',
       data: { labels: [], datasets: [{ data: [], backgroundColor: ['#198754','#ffc107','#dc3545'], borderColor: ['#198754','#ffc107','#dc3545'] }] },
       options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
     });
 
-    // Spares health doughnut
+
     this.sparesDonutChart = new Chart(this.sparesDonut.nativeElement, {
       type: 'doughnut',
       data: { labels: [], datasets: [{ data: [], backgroundColor: ['#dc3545','#198754'], borderColor: ['#dc3545','#198754'] }] },
@@ -172,7 +152,7 @@ export class DashboardsPageComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
-    // Destroy charts to free canvas/webgl contexts (optional but good hygiene)
+ 
     this.maintBarChart?.destroy();
     this.maintDonutChart?.destroy();
     this.maintLineChart?.destroy();

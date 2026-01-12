@@ -62,9 +62,9 @@ export class MaintenanceListComponent implements OnInit {
       alert('Select an AircraftID for emergency');
       return;
     }
-    // ✅ Add emergency flag here
+    
     const task = this.svc.createEmergency(this.selectedAircraftForEmergency);
-    task.isEmergency = true; // <-- highlight key
+    task.isEmergency = true;
     this.svc.add(task);
   }
 
