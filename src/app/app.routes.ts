@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> 927f57b37ca2c0b3274b0ac8dfe68f4d8155c4d1
 import { Routes } from '@angular/router';
-
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
-<<<<<<< HEAD
-=======
 
->>>>>>> 927f57b37ca2c0b3274b0ac8dfe68f4d8155c4d1
   {
     path: 'login',
     loadComponent: () =>
