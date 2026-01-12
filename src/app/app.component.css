@@ -16,8 +16,7 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-}
-.brand svg { display: block; }
+}a.brand svg { display: block; }
 .brand-text {
   color: #0b5ed7;
   font-weight: 700;

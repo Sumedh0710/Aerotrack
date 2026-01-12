@@ -15,7 +15,9 @@ export class AircraftDetailComponent implements OnInit {
   date = "";
   description = "";
   performedBy = "";
+
   constructor(private route: ActivatedRoute, private svc: AircraftService) {}
+  
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id")!;
     this.aircraft = this.svc.getById(id);

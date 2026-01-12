@@ -17,7 +17,6 @@ export class AuditListComponent implements OnInit {
   logs: AuditLog[] = [];
   aircraftFilter = '';
  
-  /** Inline modal state: null means closed */
   editing: AuditLog | null = null;
  
   constructor(private svc: AuditService) {}
@@ -40,7 +39,11 @@ export class AuditListComponent implements OnInit {
     });
   }
  
-  clear() { this.term = ''; this.aircraftFilter = ''; this.refresh(); }
+  clear() {
+     this.term = '';
+      this.aircraftFilter = '';
+       this.refresh();
+       }
  
   remove(id: string) {
     if (confirm(`Delete audit ${id}?`)) {
@@ -49,12 +52,13 @@ export class AuditListComponent implements OnInit {
     }
   }
  
-  /** Inline status dropdown handler */
+
   onStatusSelect(id: string, next: Status) {
-    // Uses your service helper; falls back to update if needed
+
     if (this.svc.setStatus) {
       this.svc.setStatus(id, next);
-    } else {
+    } 
+    else {
       const today = new Date().toISOString().slice(0, 10);
       const row = this.svc.getById(id);
       if (!row) return;
@@ -66,17 +70,15 @@ export class AuditListComponent implements OnInit {
     }
     this.refresh();
   }
- 
-  /** Open inline modal with a shallow copy of the row */
+
   openEdit(row: AuditLog) {
     this.editing = { ...row };
   }
  
-  /** Save from inline modal */
+
   saveEdit() {
     if (!this.editing) return;
  
-    // Auto-manage resolvedDate according to status selection
     const next: Status = this.editing.status ?? 'PENDING';
     const today = new Date().toISOString().slice(0, 10);
  
@@ -92,7 +94,6 @@ export class AuditListComponent implements OnInit {
     this.refresh();
   }
  
-  /** Cancel inline modal */
   cancelEdit() { this.editing = null; }
  
   export() {

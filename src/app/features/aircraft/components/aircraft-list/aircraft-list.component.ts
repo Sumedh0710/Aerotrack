@@ -21,7 +21,9 @@ export class AircraftListComponent implements OnInit {
   aircraft: Aircraft[] = [];
   categories: AircraftCategory[] = ["Commercial", "Defense", "Cargo"];
   compliances: ComplianceStatus[] = ["Compliant", "Pending", "Non-Compliant"];
+
   constructor(private svc: AircraftService) {}
+  
   ngOnInit() {
     this.refresh();
     this.svc.list().subscribe(() => this.refresh());

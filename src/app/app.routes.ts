@@ -1,22 +1,17 @@
 
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 
-// ---- Auth guard (needed at definition time)
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  // Default → Login
   { path: '', pathMatch: 'full', redirectTo: 'login' },
 
-  // Public: Login page (lazy-loaded)
   {
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login.component').then(m => m.LoginComponent),
   },
 
-  // Dashboards (lazy-loaded + guarded)
   {
     path: 'dashboards',
     canActivate: [AuthGuard],
@@ -25,7 +20,6 @@ export const routes: Routes = [
         .then(m => m.DashboardsPageComponent),
   },
 
-  // Aircraft (all lazy-loaded + guarded)
   {
     path: 'aircraft',
     canActivate: [AuthGuard],
@@ -55,7 +49,6 @@ export const routes: Routes = [
         .then(m => m.AircraftFormComponent),
   },
 
-  // Maintenance (lazy-loaded + guarded)
   {
     path: 'maintenance',
     canActivate: [AuthGuard],
@@ -78,7 +71,6 @@ export const routes: Routes = [
         .then(m => m.MaintenanceFormComponent),
   },
 
-  // Spares (lazy-loaded + guarded)
   {
     path: 'spares',
     canActivate: [AuthGuard],
@@ -101,7 +93,6 @@ export const routes: Routes = [
         .then(m => m.SparesFormComponent),
   },
 
-  // Audit & Compliance (lazy-loaded + guarded)
   {
     path: 'audit',
     canActivate: [AuthGuard],
@@ -124,7 +115,6 @@ export const routes: Routes = [
         .then(m => m.AuditFormComponent),
   },
 
-  // Fleet analytics & reporting (lazy-loaded + guarded)
   {
     path: 'reports',
     canActivate: [AuthGuard],
@@ -133,6 +123,5 @@ export const routes: Routes = [
         .then(m => m.ReportsDashboardComponent),
   },
 
-  // Fallback
   { path: '**', redirectTo: 'login' }
 ];
